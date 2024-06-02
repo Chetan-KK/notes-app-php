@@ -6,6 +6,44 @@ if(isset($_SESSION['loggedIn'])&&  $_SESSION['loggedIn']===true){
 }
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/notes-app' . '/database/dbConnect.php';
+
+$error_msg = '';
+
+if(isset($_POST['signup'])){
+
+    try {
+
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $CPassword = $_POST['CPassword'];
+
+        if(!($password === $CPassword)){
+            $error_msg = "Passwords are not same!";
+        }
+        else{
+            $hashPassword = password_hash($password,PASSWORD_DEFAULT);
+            
+            $sql = "INSERT INTO users (name,email,password) VALUES ('$name','$email','$hashPassword')";
+            $result = mysqli_query($conn,$sql);
+
+            if(!$result){
+                $error_msg = "This email already exist!";
+            }
+            else{
+                header('Location: login.php');
+            }
+
+        }
+
+        
+    } catch (mysqli_sql_exception) {
+        $error_msg = "something went wrong! pleaes try again letter or contact us!";
+    }
+    
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +58,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/notes-app' . '/database/dbConnect.php
 <?php 
 include $_SERVER['DOCUMENT_ROOT'] . '/notes-app' . '/includes/_header.php'; 
 ?>
+<div class="container">
+
 <form action="/notes-app/pages/signup.php" method="POST" class="form flex" style="max-width: 17rem;">
     <h1>
         Signup
@@ -42,43 +82,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/notes-app' . '/includes/_header.php';
     </div>
     <input type="submit" class="button submitButton" value="Sign up" name="signup">
 </form>
+<div class="center">
+        <?php echo $error_msg ?>
+    </div>
+</div>
+
 </body>
 </html>
-
-<?php
-
-if(isset($_POST['signup'])){
-
-    try {
-
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $CPassword = $_POST['CPassword'];
-
-        if(!($password === $CPassword)){
-            echo "password is not same!";
-        }
-        else{
-            $hashPassword = password_hash($password,PASSWORD_DEFAULT);
-            
-            $sql = "INSERT INTO users (name,email,password) VALUES ('$name','$email','$hashPassword')";
-            $result = mysqli_query($conn,$sql);
-
-            if(!$result){
-                echo "this email already exist!";
-            }
-            else{
-                header('Location: login.php');
-            }
-
-        }
-
-        
-    } catch (mysqli_sql_exception) {
-        echo "something went wrong!";
-    }
-    
-}
-
-?>

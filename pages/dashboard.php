@@ -92,7 +92,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/notes-app' . '/includes/_header.php';
             </div>
         </div>
         <?php };
-} ?>
+}else{ echo "start creating notes!";} ?>
 </div>
 </div>
     

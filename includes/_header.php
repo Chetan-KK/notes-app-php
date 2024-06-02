@@ -32,5 +32,40 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/notes-app' . '/database/dbConnect.php
             Signup
         </a></li>
         <?php } ?>
+
+        <div id="themeButton" class="button">Light</div>
     </ul>
+    <script>
+        const themeButton = document.getElementById('themeButton');
+
+        const prevTheme = localStorage.getItem('theme')
+
+        if(!prevTheme){
+            setLight()
+        }else{
+            prevTheme === "dark"?setDark():setLight()
+        }
+        
+        function setDark (){
+            document.body.classList.add('dark')
+                document.body.classList.remove('light')
+                themeButton.innerHTML = "Light"
+                localStorage.setItem('theme','dark')
+        }
+        function setLight(){
+            document.body.classList.add('light')
+                document.body.classList.remove('dark')
+                themeButton.innerHTML = "Dark"
+                localStorage.setItem('theme','light')
+        }
+
+        themeButton.addEventListener('click',()=>{
+            if(document.body.classList.contains('dark')){
+                setLight()
+            }
+            else{
+                setDark()
+            }
+        })
+    </script>
 </div>
