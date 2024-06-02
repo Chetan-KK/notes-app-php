@@ -1,7 +1,7 @@
 <?php 
 
 session_start();
-if(isset($_SESSION['loggedIn'])&&  $_SESSION['loggedIn']===true){
+if(isset($_SESSION['loggedIn']) &&  $_SESSION['loggedIn']===true){
     header('Location: dashboard.php');
 }
 
@@ -20,7 +20,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/notes-app' . '/database/dbConnect.php
 <?php 
 include $_SERVER['DOCUMENT_ROOT'] . '/notes-app' . '/includes/_header.php'; 
 ?>
-<form action="/notes-app/pages/login.php" method="POST" class="form flex">
+<form action="/notes-app/pages/login.php" method="POST" class="form flex" style="max-width: 17rem;">
     <h1>
         Login
     </h1>
@@ -57,6 +57,7 @@ if(isset($_POST['login'])){
             session_start();
             $_SESSION['loggedIn'] = true;
             $_SESSION['name'] = $row['name'];
+            $_SESSION['user_id'] = $row['id'];
             header("Location: dashboard.php");
         }
         else{

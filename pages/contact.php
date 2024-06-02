@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,8 +14,10 @@
 <?php 
 include $_SERVER['DOCUMENT_ROOT'] . '/notes-app' . '/includes/_header.php'; 
 ?>
-<h1>
-    Contact us
-</h1>
+<div class="container">
+    <h1>
+        Contact us
+    </h1>
+</div>
 </body>
 </html>

@@ -20,7 +20,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/notes-app' . '/database/dbConnect.php
 <?php 
 include $_SERVER['DOCUMENT_ROOT'] . '/notes-app' . '/includes/_header.php'; 
 ?>
-<form action="/notes-app/pages/signup.php" method="POST" class="form flex">
+<form action="/notes-app/pages/signup.php" method="POST" class="form flex" style="max-width: 17rem;">
     <h1>
         Signup
     </h1>
